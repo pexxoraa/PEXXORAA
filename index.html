@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PEXXORAA — Design. Develop. Transcend.</title>
+<meta name="description" content="PEXORA — Futuristic web development, immersive design, and digital transformation."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{
+  --bg:       #030508;
+  --bg2:      #080c12;
+  --bg3:      #0d1220;
+  --bg4:      #121828;
+  --cyan:     #00f5ff;
+  --cyan2:    #00c8d4;
+  --cyan3:    #007a82;
+  --violet:   #7c3aed;
+  --violet2:  #a855f7;
+  --violet3:  #4c1d95;
+  --rose:     #f0abfc;
+  --rose2:    #e879f9;
+  --amber:    #fbbf24;
+  --amber2:   #f59e0b;
+  --white:    #f0f6ff;
+  --gray1:    #94a3b8;
+  --gray2:    #64748b;
+  --gray3:    #334155;
+  --gray4:    #1e293b;
+  --glass:    rgba(255,255,255,0.03);
+  --glass2:   rgba(255,255,255,0.06);
+  --gb:       rgba(0,245,255,0.08);
+  --gb2:      rgba(0,245,255,0.14);
+  --r-xl:24px; --r-lg:16px; --r-md:10px;
+  --t:0.35s cubic-bezier(.4,0,.2,1);
+  --sh-cyan:   0 24px 64px rgba(0,245,255,0.18);
+  --sh-violet: 0 24px 64px rgba(124,58,237,0.22);
+  --sh-rose:   0 24px 64px rgba(240,171,252,0.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--bg);color:var(--white);
+  overflow-x:hidden;line-height:1.65;
+}
+h1,h2,h3,h4,h5{font-family:'Orbitron',sans-serif;line-height:1.1}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--violet2));border-radius:3px}
+
+/* scan line overlay */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,255,0.012) 2px,rgba(0,245,255,0.012) 4px);
+}
+
+.container{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* ── Gradient text ── */
+.gt{
+  background:linear-gradient(120deg,var(--cyan),var(--violet2) 55%,var(--rose2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.gt2{
+  background:linear-gradient(120deg,var(--violet2),var(--rose2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.gt3{
+  background:linear-gradient(120deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── Eyebrow ── */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:18px;
+}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+
+.sec-title{font-size:clamp(1.7rem,3.2vw,2.7rem);font-weight:800;margin-bottom:14px}
+.sec-sub{color:var(--gray1);font-size:.97rem;max-width:520px;line-height:1.8}
+
+/* ── Glass ── */
+.gl{background:var(--glass);border:1px solid rgba(0,245,255,0.07);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.gl2{background:var(--glass2);border:1px solid rgba(0,245,255,0.12);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px)}
+
+/* ── Neon border glow line ── */
+.neon-line{
+  height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet2),var(--rose2),transparent);
+  box-shadow:0 0 10px rgba(0,245,255,.4);
+}
+
+/* ── Buttons ── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:6px;
+  font-family:'Orbitron',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.04em;
+  cursor:pointer;border:none;transition:var(--t);white-space:nowrap;
+  position:relative;overflow:hidden;
+}
+.btn::after{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,0.06);
+  transform:translateX(-100%) skewX(-15deg);
+  transition:transform .5s ease;
+}
+.btn:hover::after{transform:translateX(120%) skewX(-15deg)}
+.btn-cyan{background:var(--cyan);color:#000;box-shadow:0 0 20px rgba(0,245,255,.25)}
+.btn-cyan:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(0,245,255,.4)}
+.btn-out{background:transparent;color:var(--white);border:1px solid rgba(0,245,255,.28)}
+.btn-out:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px);box-shadow:0 0 20px rgba(0,245,255,.12)}
+
+/* ════════════════════════
+   NAV
+════════════════════════ */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:20px 0;transition:var(--t);
+}
+#nav.sc{
+  background:rgba(3,5,8,.92);
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  border-bottom:1px solid rgba(0,245,255,0.08);
+  padding:12px 0;
+}
+.ni{display:flex;align-items:center;justify-content:space-between}
+/* Logo */
+.logo{
+  font-family:'Orbitron',sans-serif;font-size:1.25rem;font-weight:900;
+  display:flex;align-items:center;gap:12px;letter-spacing:.04em;
+  color:var(--white);
+}
+.logo-mark{
+  width:40px;height:40px;border-radius:10px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--cyan3),var(--violet3));
+  border:1px solid rgba(0,245,255,0.35);
+  box-shadow:0 0 20px rgba(0,245,255,0.3),inset 0 0 12px rgba(0,245,255,0.12);
+  animation:lmpulse 3s ease-in-out infinite;
+  transition:transform .5s;
+}
+.logo-mark:hover{transform:rotateY(180deg)}
+@keyframes lmpulse{
+  0%,100%{box-shadow:0 0 20px rgba(0,245,255,.3),inset 0 0 12px rgba(0,245,255,.12)}
+  50%{box-shadow:0 0 40px rgba(0,245,255,.6),0 0 80px rgba(0,245,255,.15),inset 0 0 20px rgba(0,245,255,.2)}
+}
+.logo-inner{
+  font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:900;
+  color:var(--white);letter-spacing:.05em;
+}
+.nl{display:flex;align-items:center;gap:32px;list-style:none}
+.nl a{
+  font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--gray1);transition:var(--t);position:relative;
+}
+.nl a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;
+  height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);
+  transform:scaleX(0);transition:var(--t);transform-origin:left;
+}
+.nl a:hover{color:var(--white)}
+.nl a:hover::after{transform:scaleX(1)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hbg span{display:block;width:24px;height:1.5px;background:var(--white);border-radius:2px;transition:var(--t)}
+.mnav{
+  display:none;flex-direction:column;
+  background:rgba(3,5,8,.97);border-top:1px solid rgba(0,245,255,0.08);
+  padding:18px 28px 26px;
+}
+.mnav.op{display:flex}
+.mnav a{
+  padding:12px 0;color:var(--gray1);font-size:.85rem;font-weight:600;
+  letter-spacing:.05em;text-transform:uppercase;
+  border-bottom:1px solid rgba(0,245,255,0.05);transition:var(--t);
+}
+.mnav a:hover{color:var(--cyan)}
+.mnav .btn{margin-top:16px;justify-content:center}
+
+/* ════════════════════════
+   HERO
+════════════════════════ */
+#hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  overflow:hidden;padding:130px 0 90px;
+}
+#hcanvas{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+.hvignette{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 70% at 72% 50%,transparent 20%,rgba(3,5,8,.82) 68%),
+    radial-gradient(ellipse 100% 40% at 50% 100%,rgba(3,5,8,.97),transparent 60%),
+    radial-gradient(ellipse 60% 30% at 50% 0%,rgba(3,5,8,.7),transparent 60%);
+}
+
+/* Radar */
+.radar-wrap{
+  position:absolute;top:50%;left:66%;
+  transform:translate(-50%,-50%);
+  width:540px;height:540px;
+  z-index:2;pointer-events:none;
+}
+.radar-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(0,245,255,.14);
+}
+.radar-ring:nth-child(2){inset:15%;border-color:rgba(0,245,255,.10)}
+.radar-ring:nth-child(3){inset:30%;border-color:rgba(0,245,255,.07)}
+.radar-ring:nth-child(4){inset:45%;border-color:rgba(0,245,255,.05)}
+.radar-sweep{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(
+    from 0deg,
+    rgba(0,245,255,0) 0deg,
+    rgba(0,245,255,.0) 275deg,
+    rgba(0,245,255,.65) 355deg,
+    rgba(0,245,255,.0) 360deg
+  );
+  animation:radarSpin 4s linear infinite;
+}
+@keyframes radarSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.radar-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:10px;height:10px;border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 24px var(--cyan),0 0 48px rgba(0,245,255,.4);
+}
+.blip{
+  position:absolute;width:7px;height:7px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 10px var(--cyan);
+  animation:blipFade 4s ease-in-out infinite;
+}
+.blip:nth-child(6){top:24%;left:58%;animation-delay:.9s}
+.blip:nth-child(7){top:62%;left:72%;animation-delay:1.8s}
+.blip:nth-child(8){top:38%;left:32%;animation-delay:2.7s}
+@keyframes blipFade{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1)}72%{opacity:.5}}
+
+/* Floating chips */
+.chip{
+  position:absolute;z-index:4;
+  padding:12px 16px;border-radius:12px;
+  display:flex;align-items:center;gap:12px;
+  pointer-events:none;
+}
+.chip-a{top:20%;right:7%;animation:cfloat1 6s ease-in-out infinite}
+.chip-b{bottom:28%;right:4%;animation:cfloat2 7.5s ease-in-out infinite}
+.chip-c{top:56%;right:21%;animation:cfloat1 8s 1.2s ease-in-out infinite}
+@keyframes cfloat1{0%,100%{transform:translateY(0) rotateX(0) rotateY(-8deg)}50%{transform:translateY(-14px) rotateX(5deg) rotateY(-13deg)}}
+@keyframes cfloat2{0%,100%{transform:translateY(0) rotateX(0) rotateY(8deg)}50%{transform:translateY(12px) rotateX(-4deg) rotateY(12deg)}}
+.chip-icon{
+  width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.chip-lbl{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;line-height:1.2}
+.chip-sub{font-size:.66rem;color:var(--gray1);margin-top:2px}
+
+/* Hero content */
+.hcontent{position:relative;z-index:3;max-width:640px}
+.hbadge{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:7px 18px;border-radius:5px;
+  font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);
+  background:rgba(0,245,255,.08);
+  border:1px solid rgba(0,245,255,.22);
+  margin-bottom:28px;
+  animation:fu .6s ease both;
+}
+.hpulse{
+  width:7px;height:7px;border-radius:50%;background:var(--cyan);
+  animation:pd 2s ease-in-out infinite;
+  box-shadow:0 0 10px var(--cyan);
+}
+@keyframes pd{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.4}}
+.hh1{
+  font-size:clamp(2.8rem,6vw,5.2rem);font-weight:900;
+  letter-spacing:-.02em;margin-bottom:24px;
+  animation:fu .7s .1s ease both;line-height:1.0;
+}
+.hsub{
+  font-size:1.05rem;color:var(--gray1);line-height:1.85;
+  margin-bottom:40px;max-width:540px;
+  animation:fu .7s .2s ease both;font-family:'Space Grotesk',sans-serif;
+}
+.hbtns{display:flex;gap:14px;flex-wrap:wrap;animation:fu .7s .3s ease both}
+.hstats{
+  display:flex;gap:44px;margin-top:60px;flex-wrap:wrap;
+  border-top:1px solid rgba(0,245,255,0.08);padding-top:30px;
+  animation:fu .7s .45s ease both;
+}
+.hsn{
+  font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:800;
+  background:linear-gradient(120deg,var(--cyan),var(--cyan2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hsl{font-size:.73rem;color:var(--gray2);margin-top:3px;letter-spacing:.04em}
+@keyframes fu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ════════════════════════
+   TICKER
+════════════════════════ */
+.ticker{
+  border-top:1px solid rgba(0,245,255,0.06);
+  border-bottom:1px solid rgba(0,245,255,0.06);
+  padding:16px 0;overflow:hidden;position:relative;
+}
+.ticker::before,.ticker::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:2;
+}
+.ticker::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.ticker::after{right:0;background:linear-gradient(-90deg,var(--bg),transparent)}
+.ttrack{display:flex;gap:56px;animation:tscroll 26s linear infinite;width:max-content}
+.titem{
+  display:flex;align-items:center;gap:10px;
+  font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--gray3);white-space:nowrap;transition:var(--t);
+}
+.titem svg{width:14px;height:14px;opacity:.5}
+.titem:hover{color:var(--cyan)}
+@keyframes tscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ════════════════════════
+   ABOUT
+════════════════════════ */
+#about{
+  padding:130px 0;position:relative;
+  background:linear-gradient(180deg,transparent,rgba(0,245,255,.025) 50%,transparent);
+}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.a3d{perspective:1100px;position:relative;height:460px}
+.a3d-stack{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.ac{
+  position:absolute;border-radius:var(--r-xl);padding:28px;
+  transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+.ac1{
+  width:76%;left:0;top:0;
+  background:linear-gradient(135deg,rgba(0,245,255,.1),rgba(124,58,237,.08));
+  border:1px solid rgba(0,245,255,.22);
+  box-shadow:0 30px 70px rgba(0,245,255,.1);
+  animation:ac1 8s ease-in-out infinite;
+}
+.ac2{
+  width:70%;right:0;bottom:55px;
+  background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(0,245,255,.07));
+  border:1px solid rgba(124,58,237,.3);
+  box-shadow:0 30px 70px rgba(124,58,237,.12);
+  animation:ac2 9s 1s ease-in-out infinite;
+}
+.ac3{
+  width:54%;left:50%;top:50%;
+  transform:translate(-50%,-50%) rotateX(3deg) rotateY(-4deg) translateZ(70px);
+  background:linear-gradient(135deg,rgba(240,171,252,.13),rgba(251,191,36,.1));
+  border:1px solid rgba(240,171,252,.25);
+  box-shadow:0 20px 50px rgba(240,171,252,.14);
+  animation:ac3 10s 2s ease-in-out infinite;
+}
+@keyframes ac1{0%,100%{transform:rotateX(8deg) rotateY(-12deg) translateZ(0)}50%{transform:rotateX(11deg) rotateY(-16deg) translateZ(10px)}}
+@keyframes ac2{0%,100%{transform:rotateX(-5deg) rotateY(10deg) translateZ(40px)}50%{transform:rotateX(-8deg) rotateY(14deg) translateZ(52px)}}
+@keyframes ac3{0%,100%{left:50%;top:50%;transform:translate(-50%,-50%) rotateX(3deg) rotateY(-4deg) translateZ(70px)}50%{left:50%;top:48%;transform:translate(-50%,-50%) rotateX(5deg) rotateY(-6deg) translateZ(82px)}}
+.ac-icon{
+  width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+}
+.ac h4{font-family:'Orbitron',sans-serif;font-size:.88rem;margin-bottom:7px;letter-spacing:.02em}
+.ac p{font-size:.8rem;color:var(--gray1);line-height:1.7}
+
+.vals{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:32px}
+.vchip{
+  display:flex;align-items:center;gap:9px;
+  padding:10px 14px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.025);border:1px solid rgba(0,245,255,0.07);
+  font-size:.82rem;font-weight:600;transition:var(--t);
+}
+.vchip:hover{border-color:rgba(0,245,255,.3);background:rgba(0,245,255,.06);transform:translateX(4px)}
+.vchip-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);flex-shrink:0}
+.mvrow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.mvc{padding:20px;border-radius:var(--r-lg);background:rgba(255,255,255,.02);border:1px solid rgba(0,245,255,0.07)}
+.mvc h4{font-family:'Orbitron',sans-serif;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--cyan);margin-bottom:7px}
+.mvc p{font-size:.82rem;color:var(--gray1);line-height:1.7}
+
+/* ════════════════════════
+   SERVICES — 3D flip cards
+════════════════════════ */
+#services{padding:130px 0}
+.shd{text-align:center;margin-bottom:64px}
+.shd .sec-sub{margin:0 auto}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fc{height:290px;perspective:1100px;cursor:pointer}
+.fi{
+  width:100%;height:100%;transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.4,0,.2,1);position:relative;
+}
+.fc:hover .fi{transform:rotateY(180deg)}
+.ff,.fb{
+  position:absolute;inset:0;border-radius:var(--r-xl);padding:30px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+}
+.ff{
+  background:var(--glass);border:1px solid rgba(0,245,255,.07);
+  backdrop-filter:blur(20px);
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;
+}
+.ff::before{
+  content:'';position:absolute;inset:0;border-radius:var(--r-xl);
+  background:linear-gradient(135deg,rgba(0,245,255,.04),transparent 60%);
+}
+.fb{
+  transform:rotateY(180deg);
+  display:flex;flex-direction:column;justify-content:center;
+  border:1px solid rgba(0,245,255,.2);
+}
+.ficon{
+  width:50px;height:50px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;flex-shrink:0;
+}
+.ff h3{font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;margin-bottom:8px;letter-spacing:.02em}
+.ff p{font-size:.8rem;color:var(--gray1);line-height:1.65}
+.fb h3{font-family:'Orbitron',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:14px;color:#000}
+.fb ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.fb ul li{font-size:.8rem;color:rgba(0,0,0,.85);display:flex;align-items:center;gap:8px}
+.fb ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:rgba(0,0,0,.4);flex-shrink:0}
+.scta{
+  grid-column:span 3;padding:36px 44px;border-radius:var(--r-xl);
+  background:linear-gradient(130deg,rgba(0,245,255,.08),rgba(124,58,237,.1));
+  border:1px solid rgba(0,245,255,.16);
+  display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  transition:var(--t);
+}
+.scta:hover{border-color:rgba(0,245,255,.32);box-shadow:var(--sh-cyan)}
+.scta h3{font-family:'Orbitron',sans-serif;font-size:1.3rem;margin-bottom:7px;letter-spacing:.01em}
+.scta p{font-size:.87rem;color:var(--gray1)}
+.scta-btns{display:flex;gap:12px;flex-shrink:0;flex-wrap:wrap}
+
+/* ════════════════════════
+   WHY — stat cards
+════════════════════════ */
+#why{
+  padding:130px 0;
+  background:linear-gradient(180deg,transparent,rgba(124,58,237,.03) 50%,transparent);
+}
+.wg{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.wpts{display:flex;flex-direction:column;gap:4px}
+.wpt{
+  display:flex;gap:16px;align-items:flex-start;
+  padding:18px 20px;border-radius:var(--r-lg);
+  border:1px solid transparent;transition:var(--t);
+}
+.wpt:hover{background:rgba(0,245,255,.025);border-color:rgba(0,245,255,.12);transform:translateX(5px)}
+.wpt-ico{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.14);
+}
+.wpt-ico svg{width:20px;height:20px;color:var(--cyan)}
+.wpt h4{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;margin-bottom:5px;letter-spacing:.02em}
+.wpt p{font-size:.81rem;color:var(--gray1);line-height:1.7}
+.sgr{display:grid;grid-template-columns:1fr 1fr;gap:16px;perspective:800px}
+.s3d{
+  padding:32px 22px;border-radius:var(--r-xl);text-align:center;
+  transform-style:preserve-3d;transition:transform .4s ease,box-shadow .4s ease;cursor:default;
+}
+.s3d:hover{transform:rotateX(-6deg) rotateY(6deg) translateZ(8px)}
+.s3d:nth-child(1){background:linear-gradient(135deg,rgba(0,245,255,.16),rgba(0,245,255,.04));border:1px solid rgba(0,245,255,.25)}
+.s3d:nth-child(1):hover{box-shadow:var(--sh-cyan)}
+.s3d:nth-child(2){background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(124,58,237,.05));border:1px solid rgba(124,58,237,.28)}
+.s3d:nth-child(2):hover{box-shadow:var(--sh-violet)}
+.s3d:nth-child(3){background:linear-gradient(135deg,rgba(240,171,252,.15),rgba(240,171,252,.04));border:1px solid rgba(240,171,252,.22)}
+.s3d:nth-child(3):hover{box-shadow:var(--sh-rose)}
+.s3d:nth-child(4){background:linear-gradient(135deg,rgba(251,191,36,.14),rgba(251,191,36,.04));border:1px solid rgba(251,191,36,.22)}
+.s3d:nth-child(4):hover{box-shadow:0 24px 64px rgba(251,191,36,.16)}
+.sn{font-family:'Orbitron',sans-serif;font-size:2.8rem;font-weight:900;display:block;margin-bottom:6px}
+.sl{font-size:.78rem;color:var(--gray2);letter-spacing:.04em}
+
+/* ════════════════════════
+   PROCESS
+════════════════════════ */
+#process{
+  padding:130px 0;
+  background:linear-gradient(180deg,transparent,rgba(240,171,252,.02) 50%,transparent);
+}
+.phd{text-align:center;margin-bottom:72px}
+.ptl{
+  display:flex;gap:0;position:relative;
+  perspective:1100px;
+}
+.ptl::before{
+  content:'';position:absolute;
+  top:38px;left:38px;right:38px;height:1px;
+  background:linear-gradient(90deg,var(--cyan),var(--violet2),var(--rose2));
+  box-shadow:0 0 12px rgba(0,245,255,.3);
+  opacity:.35;
+}
+.ps{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;text-align:center;padding:0 10px;
+  transition:var(--t);
+}
+.ps:hover{transform:translateY(-8px) rotateX(-3deg)}
+.pd{
+  width:76px;height:76px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-weight:800;font-size:.88rem;
+  margin-bottom:24px;position:relative;z-index:1;
+  transition:var(--t);
+}
+.ps:hover .pd{transform:scale(1.1) rotateY(15deg)}
+.pd svg{width:26px;height:26px}
+.ps h4{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;margin-bottom:7px;letter-spacing:.03em}
+.ps p{font-size:.78rem;color:var(--gray2);line-height:1.6}
+
+/* ════════════════════════
+   PORTFOLIO
+════════════════════════ */
+#portfolio{padding:130px 0}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pc{
+  border-radius:var(--r-xl);overflow:hidden;
+  border:1px solid rgba(0,245,255,.07);transition:var(--t);
+  background:var(--bg2);transform-style:preserve-3d;
+}
+.pc:hover{
+  border-color:rgba(0,245,255,.3);
+  box-shadow:0 28px 70px rgba(0,245,255,.1);
+  transform:translateY(-10px) rotateX(-3deg);
+}
+.pi2{
+  height:188px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.pi2::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(3,5,8,.95) 0%,transparent 55%);
+}
+.pcat{
+  position:absolute;top:12px;left:12px;z-index:2;
+  font-size:.64rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;padding:4px 10px;border-radius:50px;
+}
+.pb{padding:20px 22px;background:rgba(0,245,255,.015)}
+.pb h3{font-family:'Orbitron',sans-serif;font-size:.88rem;font-weight:700;margin-bottom:6px;letter-spacing:.02em}
+.pb p{font-size:.79rem;color:var(--gray1);line-height:1.65;margin-bottom:14px}
+.ptags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ptag{
+  font-size:.64rem;padding:3px 9px;border-radius:50px;
+  background:rgba(0,245,255,.07);color:var(--cyan);
+  border:1px solid rgba(0,245,255,.14);
+}
+.plnk{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.78rem;font-weight:700;color:var(--cyan);transition:var(--t);
+}
+.plnk svg{width:13px;height:13px;transition:var(--t)}
+.plnk:hover{gap:10px;color:var(--cyan2)}
+
+/* ════════════════════════
+   TESTIMONIALS
+════════════════════════ */
+#testi{
+  padding:130px 0;
+  background:linear-gradient(180deg,transparent,rgba(251,191,36,.02) 50%,transparent);
+}
+.tgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;perspective:800px}
+.tc{
+  padding:28px;border-radius:var(--r-xl);
+  background:var(--glass);border:1px solid rgba(0,245,255,.07);
+  backdrop-filter:blur(18px);transition:var(--t);transform-style:preserve-3d;
+}
+.tc:hover{
+  transform:translateY(-6px) rotateX(-3deg) rotateY(2deg);
+  border-color:rgba(0,245,255,.25);box-shadow:var(--sh-cyan);
+}
+.tq{
+  font-size:2rem;font-family:'Orbitron',sans-serif;font-weight:900;
+  background:linear-gradient(120deg,var(--cyan),var(--violet2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1;margin-bottom:12px;
+}
+.tstars{display:flex;gap:3px;margin-bottom:14px}
+.tstar{width:14px;height:14px;fill:var(--amber);color:var(--amber)}
+.ttxt{font-size:.86rem;color:var(--gray1);line-height:1.8;margin-bottom:20px}
+.tauth{display:flex;align-items:center;gap:12px}
+.tav{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Orbitron',sans-serif;font-weight:800;font-size:.82rem;
+  flex-shrink:0;color:#000;
+}
+.tname{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.02em}
+.trole{font-size:.71rem;color:var(--gray2)}
+
+/* ════════════════════════
+   FAQ
+════════════════════════ */
+#faq{padding:130px 0}
+.fwrap{display:grid;grid-template-columns:1fr 1.65fr;gap:76px;align-items:flex-start}
+.flist{display:flex;flex-direction:column;gap:9px}
+.fitem{border-radius:var(--r-md);border:1px solid rgba(0,245,255,.07);overflow:hidden;transition:var(--t)}
+.fitem.op{border-color:rgba(0,245,255,.28);background:rgba(0,245,255,.03)}
+.fq{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:18px 20px;cursor:pointer;font-size:.88rem;font-weight:600;
+  transition:var(--t);user-select:none;
+}
+.fq:hover{color:var(--cyan)}
+.fchev{width:17px;height:17px;flex-shrink:0;transition:var(--t);color:var(--gray2)}
+.fitem.op .fchev{transform:rotate(180deg);color:var(--cyan)}
+.fa{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.fitem.op .fa{max-height:300px}
+.fain{padding:0 20px 18px;font-size:.83rem;color:var(--gray1);line-height:1.85}
+.fnote{
+  margin-top:28px;padding:22px;border-radius:var(--r-lg);
+  background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(124,58,237,.08));
+  border:1px solid rgba(0,245,255,.16);transition:var(--t);
+}
+.fnote:hover{border-color:rgba(0,245,255,.32);transform:translateY(-3px)}
+
+/* ════════════════════════
+   CONTACT
+════════════════════════ */
+#contact{padding:130px 0;position:relative;overflow:hidden}
+#contact::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:900px;height:600px;
+  background:radial-gradient(ellipse,rgba(0,245,255,.05),transparent 70%);
+  pointer-events:none;
+}
+.cwrap{display:grid;grid-template-columns:1fr 1.5fr;gap:56px;align-items:flex-start}
+.cdets{display:flex;flex-direction:column;gap:10px}
+.cdet{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 18px;border-radius:var(--r-md);
+  border:1px solid rgba(0,245,255,.07);transition:var(--t);
+}
+.cdet:hover{border-color:rgba(0,245,255,.28);background:rgba(0,245,255,.04);transform:translateX(5px)}
+.cdet-ico{
+  width:40px;height:40px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,245,255,.08);
+}
+.cdet-ico svg{width:18px;height:18px;color:var(--cyan)}
+.cdet-lbl{font-size:.66rem;color:var(--gray2);margin-bottom:2px;text-transform:uppercase;letter-spacing:.08em}
+.cdet-val{font-size:.87rem;font-weight:600}
+a.cdet-val{cursor:pointer;transition:var(--t)}
+a.cdet-val:hover{color:var(--cyan)}
+.cform{
+  padding:40px;border-radius:var(--r-xl);
+  background:var(--glass2);border:1px solid rgba(0,245,255,.1);
+  backdrop-filter:blur(28px);box-shadow:0 40px 90px rgba(0,0,0,.4);
+}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.fg label{font-size:.66rem;font-weight:700;color:var(--gray2);text-transform:uppercase;letter-spacing:.08em}
+.fc2{
+  background:rgba(0,245,255,.03);border:1px solid rgba(0,245,255,.1);
+  border-radius:var(--r-md);padding:12px 16px;
+  color:var(--white);font-family:'Space Grotesk',sans-serif;font-size:.87rem;
+  outline:none;transition:var(--t);
+}
+.fc2:focus{border-color:var(--cyan);background:rgba(0,245,255,.05);box-shadow:0 0 0 3px rgba(0,245,255,.1)}
+.fc2::placeholder{color:var(--gray3)}
+textarea.fc2{resize:vertical;min-height:108px}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.fbtns{display:flex;gap:12px;flex-wrap:wrap}
+.cpromo{
+  margin-top:22px;padding:24px;border-radius:var(--r-xl);
+  background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(124,58,237,.08));
+  border:1px solid rgba(0,245,255,.16);transition:var(--t);
+}
+.cpromo:hover{border-color:rgba(0,245,255,.3);transform:translateY(-3px);box-shadow:var(--sh-cyan)}
+.cpromo h4{font-family:'Orbitron',sans-serif;font-size:.82rem;margin-bottom:8px;letter-spacing:.02em}
+.cpromo p{font-size:.8rem;color:var(--gray1);line-height:1.7}
+
+/* ════════════════════════
+   FOOTER
+════════════════════════ */
+footer{
+  border-top:1px solid rgba(0,245,255,.07);
+  padding:64px 0 30px;background:var(--bg);position:relative;
+}
+footer::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet2),var(--rose2),transparent);
+  box-shadow:0 0 16px rgba(0,245,255,.3);
+}
+.ftop{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fbrand p{font-size:.83rem;color:var(--gray2);line-height:1.8;margin-top:13px;max-width:270px}
+.fsoc{display:flex;gap:9px;margin-top:20px}
+.sb{
+  width:36px;height:36px;border-radius:9px;
+  border:1px solid rgba(0,245,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  transition:var(--t);cursor:pointer;
+}
+.sb svg{width:15px;height:15px}
+.sb:hover{border-color:var(--cyan);background:rgba(0,245,255,.1);transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,245,255,.14)}
+.fcol h5{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gray3);margin-bottom:16px}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:10px}
+.flinks a{font-size:.84rem;color:var(--gray1);transition:var(--t)}
+.flinks a:hover{color:var(--cyan)}
+.fbot{
+  border-top:1px solid rgba(0,245,255,.07);padding-top:24px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;
+}
+.fbot p{font-size:.76rem;color:var(--gray2)}
+.fbot span{color:var(--cyan)}
+.ftag{font-family:'Orbitron',sans-serif;font-size:.72rem;color:var(--gray3);letter-spacing:.06em}
+
+/* ════════════════════════
+   SCROLL REVEAL
+════════════════════════ */
+.sr{opacity:0;transform:translateY(38px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.sr.vis{opacity:1;transform:translateY(0)}
+.srs>*{opacity:0;transform:translateY(28px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+.srs.vis>*:nth-child(1){opacity:1;transform:translateY(0);transition-delay:.00s}
+.srs.vis>*:nth-child(2){opacity:1;transform:translateY(0);transition-delay:.08s}
+.srs.vis>*:nth-child(3){opacity:1;transform:translateY(0);transition-delay:.16s}
+.srs.vis>*:nth-child(4){opacity:1;transform:translateY(0);transition-delay:.24s}
+.srs.vis>*:nth-child(5){opacity:1;transform:translateY(0);transition-delay:.32s}
+.srs.vis>*:nth-child(6){opacity:1;transform:translateY(0);transition-delay:.40s}
+.srs.vis>*:nth-child(7){opacity:1;transform:translateY(0);transition-delay:.48s}
+
+/* ════════════════════════
+   RESPONSIVE
+════════════════════════ */
+@media(max-width:1024px){
+  .sgrid{grid-template-columns:1fr 1fr}.scta{grid-column:span 2}
+  .pgrid{grid-template-columns:1fr 1fr}.tgrid2{grid-template-columns:1fr 1fr}
+  .ftop{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nl,.nav-cta-btn{display:none}.hbg{display:flex}
+  .chip{display:none}.radar-wrap{display:none}
+  .ag{grid-template-columns:1fr}.a3d{height:300px}
+  .wg{grid-template-columns:1fr}.sgr{grid-template-columns:1fr 1fr}
+  .sgrid{grid-template-columns:1fr}.scta{grid-column:span 1}
+  .pgrid{grid-template-columns:1fr}.tgrid2{grid-template-columns:1fr}
+  .fwrap{grid-template-columns:1fr;gap:32px}.cwrap{grid-template-columns:1fr}
+  .ftop{grid-template-columns:1fr;gap:26px}.fbot{flex-direction:column;text-align:center}
+  .mvrow{grid-template-columns:1fr}
+  .ptl{flex-direction:column;gap:24px}
+  .ptl::before{top:38px;left:38px;width:1px;height:calc(100% - 76px);right:auto;background:linear-gradient(180deg,var(--cyan),var(--violet2),var(--rose2))}
+  .ps{flex-direction:row;text-align:left;gap:18px;align-items:flex-start}
+  .pd{flex-shrink:0;margin-bottom:0}
+  .hstats{gap:24px}
+}
+@media(max-width:480px){
+  .hbtns{flex-direction:column}.btn{justify-content:center}
+  .frow{grid-template-columns:1fr}.sgr{grid-template-columns:1fr}.vals{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Icon Defs -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="ic-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="ic-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+  </symbol>
+  <symbol id="ic-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+  </symbol>
+  <symbol id="ic-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+    <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+    <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+    <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+    <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+  </symbol>
+  <symbol id="ic-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+  </symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <symbol id="ic-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="ic-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+  </symbol>
+  <symbol id="ic-brain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.96-3 2.5 2.5 0 0 1-1.32-4.24 3 3 0 0 1 .34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.1-1.98z"/>
+    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.96-3 2.5 2.5 0 0 0 1.32-4.24 3 3 0 0 0-.34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.1-1.98z"/>
+  </symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </symbol>
+  <symbol id="ic-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.87.5 3.62 1.43 5.13L2 22l5.13-1.5a9.85 9.85 0 0 0 4.91 1.32h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.06h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.91.92-3.04-.2-.31a8.13 8.13 0 0 1-1.27-4.38c0-4.51 3.67-8.18 8.19-8.18 2.19 0 4.24.85 5.79 2.4a8.13 8.13 0 0 1 2.4 5.79c0 4.51-3.68 8.18-8.21 8.18zm4.49-6.13c-.25-.12-1.45-.71-1.68-.8-.22-.08-.39-.12-.55.12-.16.25-.63.8-.78.96-.14.16-.29.18-.53.06-.25-.12-1.06-.39-2.02-1.25-.75-.66-1.25-1.49-1.4-1.74-.14-.25-.02-.39.11-.51.12-.12.27-.31.41-.47.13-.16.18-.27.27-.45.08-.18.04-.33-.04-.46-.08-.12-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38l-.43-.01c-.14 0-.37.05-.57.27-.2.22-.76.74-.76 1.8 0 1.06.78 2.08.89 2.22.11.14 1.49 2.27 3.61 3.09 1.79.69 2.16.55 2.55.52.39-.04 1.27-.52 1.45-1.02.18-.51.18-.94.13-1.03-.05-.1-.21-.16-.46-.27z"/>
+  </symbol>
+  <symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z"/>
+  </symbol>
+  <symbol id="ic-star" viewBox="0 0 24 24" fill="currentColor">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <symbol id="ic-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+  </symbol>
+  <symbol id="ic-arrow-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="ic-chevdown" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </symbol>
+  <symbol id="ic-tw" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </symbol>
+  <symbol id="ic-li" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
+  </symbol>
+  <symbol id="ic-ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+  </symbol>
+  <symbol id="ic-gh" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  </symbol>
+  <symbol id="ic-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </symbol>
+  <symbol id="ic-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+  </symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+  </symbol>
+  <symbol id="ic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+  </symbol>
+</svg>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="ni">
+      <a href="#hero" class="logo">
+        <div class="logo-mark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00f5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        PEXXORAA
+      </a>
+      <ul class="nl">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-cyan nav-cta-btn" style="padding:11px 22px;font-size:.72rem">Get Started</a>
+      <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+  <div class="mnav" id="mnav">
+    <a href="#about" class="ml">About</a>
+    <a href="#services" class="ml">Services</a>
+    <a href="#portfolio" class="ml">Work</a>
+    <a href="#process" class="ml">Process</a>
+    <a href="#faq" class="ml">FAQ</a>
+    <a href="#contact" class="ml">Contact</a>
+    <a href="#contact" class="btn btn-cyan ml">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hcanvas"></canvas>
+  <div class="hvignette"></div>
+  <div class="radar-wrap">
+    <div class="radar-ring"></div>
+    <div class="radar-ring"></div>
+    <div class="radar-ring"></div>
+    <div class="radar-ring"></div>
+    <div class="radar-sweep"></div>
+    <div class="radar-center"></div>
+    <div class="blip"></div>
+    <div class="blip"></div>
+    <div class="blip"></div>
+  </div>
+<!-- <div class="chip gl2 chip-a">
+    <div class="chip-icon" style="background:rgba(0,245,255,.14)">
+      <svg width="18" height="18" style="color:var(--cyan)"><use href="#ic-rocket"/></svg>
+    </div>
+    <div>
+      <div class="chip-lbl">Fast Delivery</div>
+      <div class="chip-sub">7-day avg turnaround</div>
+    </div>
+  </div>
+  <div class="chip gl2 chip-b">
+    <div class="chip-icon" style="background:rgba(124,58,237,.18)">
+      <svg width="18" height="18" style="color:var(--violet2)"><use href="#ic-brain"/></svg>
+    </div>
+    <div>
+      <div class="chip-lbl">AI-Powered</div>
+      <div class="chip-sub">Next-gen intelligence</div>
+    </div>
+  </div>          
+  <div class="chip gl2 chip-c">
+    <div class="chip-icon" style="background:rgba(240,171,252,.14)">
+      <svg width="18" height="18" style="color:var(--rose2)"><use href="#ic-check"/></svg>
+    </div>      -
+    <div>     
+      <div class="chip-lbl">100% Satisfaction</div>
+    </div>
+  </div>                -->
+  <div class="container">
+    <div class="hcontent">
+      <div class="hbadge">
+        <div class="hpulse"></div>
+        Turning Ideas Into Digital Reality
+      </div>
+      <h1 class="hh1">
+        Design.<br>
+        <span class="gt">Develop.</span><br>
+        Elevate.
+      </h1>
+      <p class="hsub">PEXXORAA builds futuristic digital experiences — immersive websites, and cutting-edge interfaces that elevate brands beyond the ordinary.</p>
+      <div class="hbtns">
+        <a href="#contact" class="btn btn-cyan">Start Your Project <svg width="15" height="15"><use href="#ic-arrow-r"/></svg></a>
+        <a href="#services" class="btn btn-out">Explore Services</a>
+      </div>
+      <div class="hstats">
+        <div><div class="hsn" data-count=" " data-suffix="+">0+</div><div class="hsl">Projects Delivered</div></div>
+        <div><div class="hsn" data-count=" " data-suffix="%">0%</div><div class="hsl">Client Satisfaction</div></div>
+        <div><div class="hsn" data-count="20" data-suffix="+">0+</div><div class="hsl">Technologies</div></div>
+        <div><div class="hsn" data-count="14" data-suffix="">0</div><div class="hsl">Days Avg. Delivery</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ttrack">
+    <div class="titem"><svg><use href="#ic-globe"/></svg> Web Development</div>
+<!--    <div class="titem"><svg><use href="#ic-cpu"/></svg> AI Solutions</div>    -->
+    <div class="titem"><svg><use href="#ic-pen"/></svg> UI / UX Design</div>
+    <div class="titem"><svg><use href="#ic-layers"/></svg> Branding</div>
+    <div class="titem"><svg><use href="#ic-shield"/></svg> Cybersecurity</div>
+    <div class="titem"><svg><use href="#ic-trend"/></svg> Digital Marketing</div>
+    <div class="titem"><svg><use href="#ic-code"/></svg> Custom Software</div>
+<!--    <div class="titem"><svg><use href="#ic-brain"/></svg> Machine Learning</div>    -->
+<!--    <div class="titem"><svg><use href="#ic-rocket"/></svg> Performance</div>    -->
+    <!-- duplicate for seamless loop -->
+    <div class="titem"><svg><use href="#ic-globe"/></svg> Web Development</div>
+<!--    <div class="titem"><svg><use href="#ic-cpu"/></svg> AI Solutions</div>    -->
+    <div class="titem"><svg><use href="#ic-pen"/></svg> UI / UX Design</div>
+    <div class="titem"><svg><use href="#ic-layers"/></svg> Branding</div>
+    <div class="titem"><svg><use href="#ic-shield"/></svg> Cybersecurity</div>
+    <div class="titem"><svg><use href="#ic-trend"/></svg> Digital Marketing</div>
+    <div class="titem"><svg><use href="#ic-code"/></svg> Custom Software</div>
+<!--    <div class="titem"><svg><use href="#ic-brain"/></svg> Machine Learning</div>    -->
+<!--    <div class="titem"><svg><use href="#ic-rocket"/></svg> Performance</div>    -->
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="ag">
+      <div class="a3d sr">
+        <div class="a3d-stack">
+          <div class="ac ac1">
+            <div class="ac-icon" style="background:rgba(0,245,255,.14)">
+              <svg width="22" height="22" style="color:var(--cyan)"><use href="#ic-globe"/></svg>
+            </div>
+            <h4>Digital Presence</h4>
+            <p>We craft immersive online experiences that make your brand unforgettable in a crowded digital space.</p>
+          </div>
+  <!--    <div class="ac ac2">
+            <div class="ac-icon" style="background:rgba(124,58,237,.18)">
+              <svg width="22" height="22" style="color:var(--violet2)"><use href="#ic-cpu"/></svg>
+            </div>
+            <h4>AI-First Engineering</h4>
+            <p>From intelligent automation to generative interfaces, we embed AI at the core of every solution.</p>
+          </div>       
+   -->
+          <div class="ac ac3">
+            <div class="ac-icon" style="background:rgba(240,171,252,.14)">
+              <svg width="22" height="22" style="color:var(--rose2)"><use href="#ic-trend"/></svg>
+            </div>
+            <h4>Growth Systems</h4>
+            <p>Performance-driven strategies that convert visitors into loyal customers.</p>
+          </div>
+        </div>
+      </div>
+      <div class="sr">
+        <div class="eyebrow">Who We Are</div>
+        <h2 class="sec-title">Building the <span class="gt">Future of Digital</span></h2>
+        <p class="sec-sub" style="margin-bottom:28px">PEXXORAA is a next-generation digital studio that fuses creative design, precision engineering, and artificial intelligence to build digital experiences that feel like the future — today.</p>
+        <p style="color:var(--gray1);font-size:.9rem;line-height:1.85;margin-bottom:28px">We Will work with startups, growing businesses, and established brands to craft websites, apps, and digital systems that don't just look impressive — they perform, convert, and scale.</p>
+        <div class="vals srs">
+          <div class="vchip"><span class="vchip-dot"></span>Affordable Pricing</div>
+      <!--    <div class="vchip"><span class="vchip-dot"></span>Mobile-First Design</div>     -->
+          <div class="vchip"><span class="vchip-dot"></span>Fast Turnaround</div>
+          <div class="vchip"><span class="vchip-dot"></span>Ongoing Support</div>
+      <!--    <div class="vchip"><span class="vchip-dot"></span>Transparent Process</div>      -->
+          <div class="vchip"><span class="vchip-dot"></span>Scalable Solutions</div>
+        </div>
+        <div class="mvrow srs">
+          <div class="mvc">
+            <h4>Our Mission</h4>
+            <p>To provide affordable, professional, and reliable digital solutions for businesses of every size.</p>
+          </div>
+          <div class="mvc">
+            <h4>Our Vision</h4>
+            <p>To become the most trusted digital partner for businesses that refuse to settle for ordinary.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="shd sr">
+      <div class="eyebrow" style="justify-content:center">What We Build</div>
+      <h2 class="sec-title">Services That <span class="gt">Redefine Digital</span></h2>
+      <p class="sec-sub">Hover each card to discover what we can build for you.</p>
+    </div>
+    <div class="sgrid srs">
+      <div class="fc">
+        <div class="fi">
+          <div class="ff">
+            <div class="ficon" style="background:rgba(0,245,255,.12)"><svg width="24" height="24" style="color:var(--cyan)"><use href="#ic-globe"/></svg></div>
+            <h3>Web Development</h3>
+            <p>Custom responsive websites built to convert visitors into customers.</p>
+          </div>
+          <div class="fb" style="background:linear-gradient(135deg,var(--cyan),var(--cyan2))">
+            <h3>Web Development</h3>
+            <ul>
+              <li>Business websites</li>
+              <li>Portfolio sites</li>
+              <li>Landing pages</li>
+              <li>E-commerce stores</li>
+              <li>Custom web apps</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fi">
+          <div class="ff">
+            <div class="ficon" style="background:rgba(124,58,237,.14)"><svg width="24" height="24" style="color:var(--violet2)"><use href="#ic-brain"/></svg></div>
+            <h3>AI Integration</h3>
+            <p>Embed next-gen intelligence directly into your products and workflows.</p>
+          </div>
+          <div class="fb" style="background:linear-gradient(135deg,var(--violet3),var(--violet))">
+            <h3 style="color:#fff">AI Solutions</h3>
+            <ul style="color:rgba(255,255,255,.85)">
+              <li>Chatbot development</li>
+              <li>AI-powered automation</li>
+              <li>Smart recommendations</li>
+              <li>Data analysis tools</li>
+              <li>Generative UI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fi">
+          <div class="ff">
+            <div class="ficon" style="background:rgba(240,171,252,.12)"><svg width="24" height="24" style="color:var(--rose2)"><use href="#ic-pen"/></svg></div>
+            <h3>UI / UX Design</h3>
+            <p>Stunning, user-centric interfaces that delight at every interaction.</p>
+          </div>
+          <div class="fb" style="background:linear-gradient(135deg,#6b21a8,var(--rose2))">
+            <h3 style="color:#fff">Design Services</h3>
+            <ul style="color:rgba(255,255,255,.85)">
+              <li>UI / UX design</li>
+              <li>Brand identity</li>
+              <li>Logo design</li>
+              <li>Social media graphics</li>
+              <li>Motion design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fi">
+          <div class="ff">
+            <div class="ficon" style="background:rgba(251,191,36,.12)"><svg width="24" height="24" style="color:var(--amber)"><use href="#ic-trend"/></svg></div>
+            <h3>Digital Marketing</h3>
+            <p>Data-driven strategies that grow your audience and revenue.</p>
+          </div>
+          <div class="fb" style="background:linear-gradient(135deg,#92400e,var(--amber))">
+            <h3>Digital Marketing</h3>
+            <ul>
+              <li>SEO optimization</li>
+              <li>Google Business setup</li>
+              <li>Social media marketing</li>
+              <li>PPC campaigns</li>
+              <li>Content strategy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fi">
+          <div class="ff">
+            <div class="ficon" style="background:rgba(0,245,255,.12)"><svg width="24" height="24" style="color:var(--cyan)"><use href="#ic-wrench"/></svg></div>
+            <h3>Maintenance</h3>
+            <p>Keep your digital assets secure, fast, and up to date around the clock.</p>
+          </div>
+          <div class="fb" style="background:linear-gradient(135deg,#0f2027,var(--cyan3))">
+            <h3 style="color:#fff">Maintenance Plans</h3>
+            <ul style="color:rgba(255,255,255,.85)">
+              <li>Security updates</li>
+              <li>Performance tuning</li>
+              <li>Content updates</li>
+              <li>Uptime monitoring</li>
+              <li>Priority support</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fi">
+          <div class="ff">
+            <div class="ficon" style="background:rgba(124,58,237,.14)"><svg width="24" height="24" style="color:var(--violet2)"><use href="#ic-cpu"/></svg></div>
+            <h3>Software Dev</h3>
+            <p>Scalable custom software engineered for your exact business needs.</p>
+          </div>
+          <div class="fb" style="background:linear-gradient(135deg,#1e1b4b,var(--indigo,#6366f1))">
+            <h3 style="color:#fff">Software Dev</h3>
+            <ul style="color:rgba(255,255,255,.85)">
+              <li>SaaS platforms</li>
+              <li>API development</li>
+              <li>Database architecture</li>
+              <li>Cloud integrations</li>
+              <li>DevOps pipelines</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="scta">
+        <div>
+          <h3>Ready to build something extraordinary?</h3>
+          <p>Let's turn your vision into a digital experience that leads the future.</p>
+        </div>
+        <div class="scta-btns">
+          <a href="#contact" class="btn btn-cyan">Get a Quote <svg width="15" height="15"><use href="#ic-arrow-r"/></svg></a>
+      <!--    <a href="#portfolio" class="btn btn-out">View Our Work</a>      -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY PEXORA -->
+<section id="why">
+  <div class="container">
+    <div class="wg">
+      <div class="sr">
+        <div class="eyebrow">Why Choose Us</div>
+        <h2 class="sec-title">Built for <span class="gt">Performance</span></h2>
+        <p class="sec-sub" style="margin-bottom:40px">We don't just deliver projects — we deliver results that matter to your bottom line.</p>
+        <div class="wpts srs">
+          <div class="wpt">
+            <div class="wpt-ico"><svg><use href="#ic-check"/></svg></div>
+            <div>
+              <h4>Affordable Pricing</h4>
+              <p>Enterprise-quality output at pricing built for real businesses and startups.</p>
+            </div>
+          </div>
+          <div class="wpt">
+            <div class="wpt-ico"><svg><use href="#ic-globe"/></svg></div>
+            <div>
+              <h4>Mobile-First Design</h4>
+              <p>Every pixel is optimized for flawless performance on every device.</p>
+            </div>
+          </div>
+          <div class="wpt">
+            <div class="wpt-ico"><svg><use href="#ic-clock"/></svg></div>
+            <div>
+              <h4>Fast Support</h4>
+              <p>Direct access to your dedicated team — no ticketing system , Response in 24 Hours.</p>
+            </div>
+          </div>
+          <div class="wpt">
+            <div class="wpt-ico"><svg><use href="#ic-shield"/></svg></div>
+            <div>
+              <h4>Transparent Process</h4>
+              <p>Full visibility from brief to launch — no surprises, only results.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sgr sr">
+        <div class="s3d">
+          <span class="sn gt3" data-count="0" data-suffix="+">0+</span>
+          <span class="sl">Projects Delivered</span>
+        </div>
+        <div class="s3d">
+          <span class="sn gt2" data-count="0" data-suffix="%">100%</span>
+          <span class="sl">Client Satisfaction</span>
+        </div>
+        <div class="s3d">
+          <span class="sn" style="background:linear-gradient(120deg,var(--rose),var(--rose2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-count="14" data-suffix="">14</span>
+          <span class="sl">Days Avg. Delivery</span>
+        </div>
+        <div class="s3d">
+          <span class="sn" style="background:linear-gradient(120deg,var(--amber),var(--amber2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" data-count="20" data-suffix="+">20+</span>
+          <span class="sl">Technologies Used</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- PORTFOLIO -->
+<!--
+<section id="portfolio">
+  <div class="container">
+    <div class="sr" style="text-align:center;margin-bottom:64px">
+      <div class="eyebrow" style="justify-content:center">Our Work</div>
+      <h2 class="sec-title">Featured <span class="gt">Projects</span></h2>
+      <p class="sec-sub" style="margin:0 auto">A selection of work that defines what digital excellence looks like.</p>
+    </div>
+    <div class="pgrid srs">
+      <div class="pc">
+        <div class="pi2" style="background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(124,58,237,.12))">
+          <svg width="64" height="64" class="pi2-icon" style="color:var(--cyan)"><use href="#ic-globe"/></svg>
+          <span class="pcat" style="background:rgba(0,245,255,.15);color:var(--cyan);border:1px solid rgba(0,245,255,.25)">Web</span>
+        </div>
+        <div class="pb">
+          <h3>CloudStart Platform</h3>
+          <p>Full-stack SaaS platform with real-time dashboards and AI analytics built for scale.</p>
+          <div class="ptags"><span class="ptag">React</span><span class="ptag">Node.js</span><span class="ptag">AI</span></div>
+          <a href="#" class="plnk">View Project <svg><use href="#ic-arrow-r"/></svg></a>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pi2" style="background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(240,171,252,.08))">
+          <svg width="64" height="64" class="pi2-icon" style="color:var(--violet2)"><use href="#ic-brain"/></svg>
+          <span class="pcat" style="background:rgba(124,58,237,.15);color:var(--violet2);border:1px solid rgba(124,58,237,.25)">AI</span>
+        </div>
+        <div class="pb">
+          <h3>Neural Commerce</h3>
+          <p>AI-driven e-commerce platform with personalized recommendations and smart inventory.</p>
+          <div class="ptags"><span class="ptag">Python</span><span class="ptag">ML</span><span class="ptag">Next.js</span></div>
+          <a href="#" class="plnk">View Project <svg><use href="#ic-arrow-r"/></svg></a>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pi2" style="background:linear-gradient(135deg,rgba(240,171,252,.1),rgba(251,191,36,.08))">
+          <svg width="64" height="64" class="pi2-icon" style="color:var(--rose2)"><use href="#ic-pen"/></svg>
+          <span class="pcat" style="background:rgba(240,171,252,.15);color:var(--rose2);border:1px solid rgba(240,171,252,.22)">Design</span>
+        </div>
+        <div class="pb">
+          <h3>Lumina Brand System</h3>
+          <p>Complete brand identity, design system, and digital presence for a fintech startup.</p>
+          <div class="ptags"><span class="ptag">Branding</span><span class="ptag">UI/UX</span><span class="ptag">Figma</span></div>
+          <a href="#" class="plnk">View Project <svg><use href="#ic-arrow-r"/></svg></a>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pi2" style="background:linear-gradient(135deg,rgba(251,191,36,.08),rgba(0,245,255,.08))">
+          <svg width="64" height="64" class="pi2-icon" style="color:var(--amber)"><use href="#ic-trend"/></svg>
+          <span class="pcat" style="background:rgba(251,191,36,.15);color:var(--amber);border:1px solid rgba(251,191,36,.25)">Marketing</span>
+        </div>
+        <div class="pb">
+          <h3>GrowthOS Dashboard</h3>
+          <p>Marketing analytics platform integrating 30+ data sources into a single command center.</p>
+          <div class="ptags"><span class="ptag">Analytics</span><span class="ptag">API</span><span class="ptag">D3.js</span></div>
+          <a href="#" class="plnk">View Project <svg><use href="#ic-arrow-r"/></svg></a>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pi2" style="background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(124,58,237,.1))">
+          <svg width="64" height="64" class="pi2-icon" style="color:var(--cyan2)"><use href="#ic-shield"/></svg>
+          <span class="pcat" style="background:rgba(0,245,255,.12);color:var(--cyan);border:1px solid rgba(0,245,255,.2)">Security</span>
+        </div>
+        <div class="pb">
+          <h3>VaultGuard Enterprise</h3>
+          <p>Zero-trust cybersecurity dashboard with real-time threat monitoring and automated response.</p>
+          <div class="ptags"><span class="ptag">Security</span><span class="ptag">Cloud</span><span class="ptag">DevOps</span></div>
+          <a href="#" class="plnk">View Project <svg><use href="#ic-arrow-r"/></svg></a>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pi2" style="background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(0,245,255,.06))">
+          <svg width="64" height="64" class="pi2-icon" style="color:var(--violet2)"><use href="#ic-layers"/></svg>
+          <span class="pcat" style="background:rgba(124,58,237,.15);color:var(--violet2);border:1px solid rgba(124,58,237,.22)">SaaS</span>
+        </div>
+        <div class="pb">
+          <h3>Nexus Collaboration Hub</h3>
+          <p>Real-time team collaboration platform with built-in AI writing assistant and smart scheduling.</p>
+          <div class="ptags"><span class="ptag">WebSocket</span><span class="ptag">AI</span><span class="ptag">TypeScript</span></div>
+          <a href="#" class="plnk">View Project <svg><use href="#ic-arrow-r"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
+
+<!-- TESTIMONIALS -->
+<!--
+<section id="testi">
+  <div class="container">
+    <div class="sr" style="text-align:center;margin-bottom:64px">
+      <div class="eyebrow" style="justify-content:center">Client Stories</div>
+      <h2 class="sec-title">What They <span class="gt">Say About Us</span></h2>
+    </div>
+    <div class="tgrid2 srs">
+      <div class="tc">
+        <div class="tq">"</div>
+        <div class="tstars">
+          <svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg>
+        </div>
+        <p class="ttxt">PEXXORAA completely transformed our online presence. In 30 days we went from a dated website to a conversion machine. Lead gen up _%.</p>
+        <div class="tauth">
+          <div class="tav" style="background:linear-gradient(135deg,var(--cyan),var(--cyan3))">SC</div>
+          <div>
+            <div class="tname">Sarah Chen</div>
+            <div class="trole">CEO, TechVision Inc.</div>
+          </div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tq">"</div>
+        <div class="tstars">
+          <svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg>
+        </div>
+        <p class="ttxt">The AI-powered dashboard they built cut our reporting time by 80%. The team is genuinely world-class — responsive, creative, and precise.</p>
+        <div class="tauth">
+          <div class="tav" style="background:linear-gradient(135deg,var(--violet2),var(--violet3))">MR</div>
+          <div>
+            <div class="tname">Marcus Reid</div>
+            <div class="trole">CTO, GlobalScale Solutions</div>
+          </div>
+        </div>
+      </div>
+      <div class="tc">
+        <div class="tq">"</div>
+        <div class="tstars">
+          <svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg><svg class="tstar"><use href="#ic-star"/></svg>
+        </div>
+        <p class="ttxt">Not just an agency — a true partner. PEXORA understood our vision immediately and delivered something that exceeded every expectation we had.</p>
+        <div class="tauth">
+          <div class="tav" style="background:linear-gradient(135deg,var(--rose2),#9d174d)">EW</div>
+          <div>
+            <div class="tname">Emma Williams</div>
+            <div class="trole">Founder, InnovateCo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="phd sr">
+      <div class="eyebrow" style="justify-content:center">How We Work</div>
+      <h2 class="sec-title">Our <span class="gt">Proven Process</span></h2>
+      <p class="sec-sub" style="margin:0 auto 16px">Six precise steps from idea to launch — every time.</p>
+    </div>
+    <div class="ptl srs">
+      <div class="ps">
+        <div class="pd" style="background:linear-gradient(135deg,rgba(0,245,255,.14),rgba(0,245,255,.05));border:1px solid rgba(0,245,255,.3)">
+          <svg width="26" height="26" style="color:var(--cyan)"><use href="#ic-eye"/></svg>
+        </div>
+        <h4>Discovery</h4>
+        <p>Deep-dive into your vision, goals, and audience</p>
+      </div>
+      <div class="ps">
+        <div class="pd" style="background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(124,58,237,.05));border:1px solid rgba(124,58,237,.3)">
+          <svg width="26" height="26" style="color:var(--violet2)"><use href="#ic-layers"/></svg>
+        </div>
+        <h4>Strategy</h4>
+        <p>Blueprint, architecture, and technical planning</p>
+      </div>
+      <div class="ps">
+        <div class="pd" style="background:linear-gradient(135deg,rgba(240,171,252,.14),rgba(240,171,252,.04));border:1px solid rgba(240,171,252,.28)">
+          <svg width="26" height="26" style="color:var(--rose2)"><use href="#ic-pen"/></svg>
+        </div>
+        <h4>Design</h4>
+        <p>Pixel-perfect UI/UX with interactive prototypes</p>
+      </div>
+      <div class="ps">
+        <div class="pd" style="background:linear-gradient(135deg,rgba(0,245,255,.12),rgba(124,58,237,.1));border:1px solid rgba(0,245,255,.22)">
+          <svg width="26" height="26" style="color:var(--cyan)"><use href="#ic-code"/></svg>
+        </div>
+        <h4>Build</h4>
+        <p>Clean, scalable code built for performance</p>
+      </div>
+      <div class="ps">
+        <div class="pd" style="background:linear-gradient(135deg,rgba(251,191,36,.14),rgba(251,191,36,.04));border:1px solid rgba(251,191,36,.28)">
+          <svg width="26" height="26" style="color:var(--amber)"><use href="#ic-rocket"/></svg>
+        </div>
+        <h4>Launch</h4>
+        <p>Staged deployment with QA and performance checks</p>
+      </div>
+      <div class="ps">
+        <div class="pd" style="background:linear-gradient(135deg,rgba(124,58,237,.16),rgba(0,245,255,.08));border:1px solid rgba(124,58,237,.28)">
+          <svg width="26" height="26" style="color:var(--violet2)"><use href="#ic-shield"/></svg>
+        </div>
+        <h4>Support</h4>
+        <p>Ongoing maintenance, updates, and growth</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="fwrap">
+      <div class="sr">
+        <div class="eyebrow">FAQ</div>
+        <h2 class="sec-title">Common <span class="gt">Questions</span></h2>
+        <p class="sec-sub">Everything you need to know before we start building together.</p>
+        <div class="fnote">
+          <h4 style="font-family:'Orbitron',sans-serif;font-size:.85rem;margin-bottom:8px;color:var(--cyan)">Still have questions?</h4>
+          <p style="font-size:.83rem;color:var(--gray1);line-height:1.75">Our team responds within 24 hours. Reach us at <a href="mailto:pexxoraa@gmail.com" style="color:var(--cyan)">pexxoraa@gmail.com</a> or use the contact form.</p>
+        </div>
+      </div>
+      <div class="flist sr">
+        <div class="fitem">
+          <div class="fq">What makes PEXXORAA different from other agencies?<svg class="fchev"><use href="#ic-chevdown"/></svg></div>
+          <div class="fa"><div class="fain">We combine design artistry, engineering precision, and AI expertise under one roof. Unlike traditional agencies, we're builders first — every team member codes, designs, or does both. We don't outsource, and we don't pad timelines.</div></div>
+        </div>
+        <div class="fitem">
+          <div class="fq">How long does a typical project take?<svg class="fchev"><use href="#ic-chevdown"/></svg></div>
+          <div class="fa"><div class="fain">Simple websites: 7–14 days. Complex web apps or AI integrations: 4–10 weeks. We give you a detailed timeline during discovery and we hold to it. Rush delivery is available for most projects.</div></div>
+        </div>
+        <div class="fitem">
+          <div class="fq">What do you need from me to get started?<svg class="fchev"><use href="#ic-chevdown"/></svg></div>
+          <div class="fa"><div class="fain">Just your vision. Fill out our contact form, and we'll schedule a free strategy call. After that, we handle the heavy lifting — research, planning, design, development, and launch.</div></div>
+        </div>
+        <div class="fitem">
+          <div class="fq">Do you offer ongoing maintenance?<svg class="fchev"><use href="#ic-chevdown"/></svg></div>
+          <div class="fa"><div class="fain">Yes. Every project includes 30 days of post-launch support. For ongoing needs, we offer monthly retainer plans that cover updates, security patches, performance optimization, and feature additions.</div></div>
+        </div>
+        <div class="fitem">
+          <div class="fq">What technologies do you work with?<svg class="fchev"><use href="#ic-chevdown"/></svg></div>
+          <div class="fa"><div class="fain">React, Next.js, Node.js,Html&css, Python, TypeScript, PostgreSQL, MongoDB, AWS, Vercel, Supabase, LangChain, and more. We use the best tool for the job — not just the most popular one.</div></div>
+        </div>
+        <div class="fitem">
+          <div class="fq">How is pricing structured?<svg class="fchev"><use href="#ic-chevdown"/></svg></div>
+          <div class="fa"><div class="fain">Fixed-price projects for well-defined scopes. Time-and-materials for evolving products. Retainers for ongoing work. All pricing is transparent and discussed upfront — no hidden costs or surprise invoices.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sr" style="text-align:center;margin-bottom:64px">
+      <div class="eyebrow" style="justify-content:center">Get In Touch</div>
+      <h2 class="sec-title">Start Your <span class="gt">Next Project</span></h2>
+      <p class="sec-sub" style="margin:0 auto">Tell us what you're building. We'll help you take it further than you imagined.</p>
+    </div>
+    <div class="cwrap">
+      <div class="sr">
+        <div class="cdets">
+          <div class="cdet">
+            <div class="cdet-ico"><svg><use href="#ic-mail"/></svg></div>
+            <div>
+              <div class="cdet-lbl">Email</div>
+              <a class="cdet-val" href="mailto:pexxoraa@gmail.com" style="display:block">pexxoraa@gmail.com</a>
+            </div>
+          </div>
+          <div class="cdet">
+            <div class="cdet-ico"><svg><use href="#ic-phone"/></svg></div>
+            <div>
+              <div class="cdet-lbl">Phone</div>
+              <a class="cdet-val" href="tel:+918247699591" style="display:block">+91 82476 99591</a>
+            </div>
+          </div>
+          <!-- WHATSAPP — replace 918247699591 in href below with your number (countrycode+number, no +, no spaces) -->
+          <div class="cdet">
+            <div class="cdet-ico" style="background:rgba(37,211,102,.12)"><svg style="color:#25D366"><use href="#ic-whatsapp"/></svg></div>
+            <div>
+              <div class="cdet-lbl">WhatsApp</div>
+              <a class="cdet-val" href="https://wa.me/918247699591" target="_blank" rel="noopener" style="display:block">+91 82476 99591</a>
+            </div>
+          </div>
+          <!-- END WHATSAPP -->
+          <div class="cdet">
+            <div class="cdet-ico"><svg><use href="#ic-map"/></svg></div>
+            <div>
+              <div class="cdet-lbl">Location</div>
+              <div class="cdet-val">Global — Remote First</div>
+            </div>
+          </div>
+          <div class="cdet">
+            <div class="cdet-ico"><svg><use href="#ic-clock"/></svg></div>
+            <div>
+              <div class="cdet-lbl">Response Time</div>
+              <div class="cdet-val">Under 24 hours</div>
+            </div>
+          </div>
+        </div>
+        <div class="cpromo">
+          <h4>Free Strategy Session</h4>
+          <p>Book a 30-minute call with our team. We'll audit your current digital presence and map out exactly what we'd build — at no cost and no obligation.</p>
+        </div>
+      </div>
+      <div class="cform sr">
+        <h3 style="font-family:'Orbitron',sans-serif;font-size:1.1rem;margin-bottom:28px;letter-spacing:.02em">Send Us a Message</h3>
+        <div class="frow">
+          <div class="fg"><label for="cf-first">First Name <span style="color:#f43f5e">*</span></label><input id="cf-first" name="first_name" type="text" class="fc2" placeholder="Alex" autocomplete="given-name"></div>
+          <div class="fg"><label for="cf-last">Last Name</label><input id="cf-last" name="last_name" type="text" class="fc2" placeholder="Johnson" autocomplete="family-name"></div>
+        </div>
+        <div class="fg"><label for="cf-email">Email Address <span style="color:#f43f5e">*</span></label><input id="cf-email" name="email" type="email" class="fc2" placeholder="alex@company.com" autocomplete="email"></div>
+        <div class="fg"><label for="cf-phone">Phone Number <span style="color:#f43f5e">*</span></label><input id="cf-phone" name="phone" type="tel" class="fc2" placeholder="+91 (000) 000-0000" autocomplete="tel"></div>
+        <div class="fg">
+          <label for="cf-service">Service Interested In <span style="color:#f43f5e">*</span></label>
+          <select id="cf-service" name="service" class="fc2">
+            <option value="" style="background:#0d1220">Select a service…</option>
+            <option value="Web Development" style="background:#0d1220">Web Development</option>
+            <option value="AI Integration" style="background:#0d1220">AI Integration</option>
+            <option value="UI / UX Design" style="background:#0d1220">UI / UX Design</option>
+            <option value="Digital Marketing" style="background:#0d1220">Digital Marketing</option>
+            <option value="Website Maintenance" style="background:#0d1220">Website Maintenance</option>
+            <option value="Custom Software" style="background:#0d1220">Custom Software</option>
+          </select>
+        </div>
+        <div class="fg"><label for="cf-msg">Project Details</label><textarea id="cf-msg" name="message" class="fc2" placeholder="Tell us about your project, goals, and timeline…"></textarea></div>
+        <div class="fbtns">
+          <button class="btn btn-cyan" onclick="handleSub(this)" style="flex:1;justify-content:center">
+            Send Message <svg width="15" height="15"><use href="#ic-send"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="ftop">
+      <div class="fbrand">
+        <div class="logo" style="margin-bottom:4px">
+          <div class="logo-mark" style="animation:none">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00f5ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          PEXXORAA
+        </div>
+        <p>A next-generation digital studio building futuristic experiences for forward-thinking brands.</p>
+        <div class="fsoc">
+          <div class="sb" title="Twitter/X"><svg style="color:var(--gray1)"><use href="#ic-tw"/></svg></div>
+          <div class="sb" title="LinkedIn"><svg style="color:var(--gray1)"><use href="#ic-li"/></svg></div>
+          <div class="sb" title="Instagram"><svg style="color:var(--gray1)"><use href="#ic-ig"/></svg></div>
+          <div class="sb" title="GitHub"><svg style="color:var(--gray1)"><use href="#ic-gh"/></svg></div>
+        </div>
+      </div>
+      <div class="fcol">
+        <h5>Company</h5>
+        <ul class="flinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#testi">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Services</h5>
+        <ul class="flinks">
+          <li><a href="#services">Web Development</a></li>
+          <li><a href="#services">AI Solutions</a></li>
+          <li><a href="#services">UI / UX Design</a></li>
+          <li><a href="#services">Digital Marketing</a></li>
+          <li><a href="#services">Maintenance</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Contact</h5>
+        <ul class="flinks">
+          <li><a href="mailto:pexxoraa@gmail.com">pexxoraa@gmail.com</a></li>
+          <li><a href="tel:+918247699591">+91 82476 99591</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Get a Quote</a></li>
+          <li><a href="#process">Our Process</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <p>© 2026 <span>PEXXORAA</span>. All Rights Reserved.</p>
+      <div class="ftag">Design. Develop. Transcend.</div>
+      <p style="font-size:.72rem;color:var(--gray3)">Privacy Policy · Terms of Service</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/*
+  ╔══════════════════════════════════════════════════════╗
+  ║  EMAILJS SETUP — 3 steps to make the form live       ║
+  ║  1. Sign up free at https://www.emailjs.com          ║
+  ║  2. Create a Service (Gmail/Outlook) → copy Service ID║
+  ║  3. Create an Email Template → copy Template ID      ║
+  ║     Template variables: {{first_name}}, {{last_name}},║
+  ║     {{email}}, {{phone}}, {{service}}, {{message}}   ║
+  ║  4. Copy your Public Key from Account > API Keys     ║
+  ║  5. Replace the 3 placeholders below with your values║
+  ╚══════════════════════════════════════════════════════╝
+*/
+/* ── THREE.js Hero Canvas ── */
+(function(){
+  const canvas = document.getElementById('hcanvas');
+  if(!canvas || typeof THREE === 'undefined') return;
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setClearColor(0,0);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(55, 1, .1, 100);
+  camera.position.z = 5;
+
+  function resize(){
+    const w = canvas.offsetWidth, h = canvas.offsetHeight;
+    // FIX: on first paint, layout may not be settled yet (e.g. while
+    // Space Grotesk / Orbitron web fonts are still loading and the hero's
+    // box height hasn't been finalized). If offsetWidth/offsetHeight read
+    // as 0 here, camera.aspect becomes Infinity/NaN, and Three.js's
+    // projection matrix never recovers — the canvas can stay blank until
+    // a real resize event fires. Skip the update entirely if dimensions
+    // aren't usable yet; the existing window resize listener (and the
+    // retry below) will pick it up once layout settles.
+    if(!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  // FIX: if the very first resize() bailed out due to zero dimensions,
+  // retry shortly after fonts/layout settle instead of leaving the scene
+  // permanently unsized.
+  if(!canvas.offsetWidth || !canvas.offsetHeight){
+    requestAnimationFrame(resize);
+    setTimeout(resize, 300);
+  }
+  window.addEventListener('resize', resize);
+
+  /* Particles */
+  const N = 1200;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(N*3), col = new Float32Array(N*3);
+  const palette = [
+    new THREE.Color('#00f5ff'),
+    new THREE.Color('#00c8d4'),
+    new THREE.Color('#7c3aed'),
+    new THREE.Color('#a855f7'),
+    new THREE.Color('#f0abfc'),
+    new THREE.Color('#fbbf24'),
+  ];
+  for(let i = 0; i < N; i++){
+    pos[i*3]   = (Math.random()-.5)*22;
+    pos[i*3+1] = (Math.random()-.5)*14;
+    pos[i*3+2] = (Math.random()-.5)*10;
+    const c = palette[Math.floor(Math.random()*palette.length)];
+    col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(col,3));
+  const pts = new THREE.Points(geo, new THREE.PointsMaterial({size:.045,vertexColors:true,transparent:true,opacity:.65,sizeAttenuation:true}));
+  scene.add(pts);
+
+  /* Wireframe shapes */
+  function wf(g, color, x, y, z){
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({color, wireframe:true, transparent:true, opacity:.13}));
+    m.position.set(x,y,z); scene.add(m); return m;
+  }
+  const shapes = [
+    wf(new THREE.IcosahedronGeometry(1.1,1), 0x00f5ff, 3.5, 0.8, -1),
+    wf(new THREE.OctahedronGeometry(.9,0),   0x7c3aed, -3.2, -.5, -2),
+    wf(new THREE.TorusGeometry(.8,.28,12,28), 0xf0abfc, 4.5, -1.5, -3),
+    wf(new THREE.IcosahedronGeometry(.6,0),  0xfbbf24, -4.5, 1.2, -1),
+    wf(new THREE.OctahedronGeometry(.5,0),   0x00f5ff, 2, 2, -4),
+  ];
+
+  /* Grid */
+  const grid = new THREE.Mesh(
+    new THREE.PlaneGeometry(30,30,30,30),
+    new THREE.MeshBasicMaterial({color:0x00f5ff, wireframe:true, transparent:true, opacity:.04})
+  );
+  grid.rotation.x = -Math.PI*.4;
+  grid.position.set(0,-4,-6);
+  scene.add(grid);
+
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e=>{
+    mx = (e.clientX/innerWidth-.5)*2;
+    my = -(e.clientY/innerHeight-.5)*2;
+  });
+
+  let t = 0;
+  (function animate(){
+    requestAnimationFrame(animate);
+    t += .008;
+    pts.rotation.y = t*.04; pts.rotation.x = t*.015;
+    shapes[0].rotation.x = t*.4;  shapes[0].rotation.y = t*.3;
+    shapes[1].rotation.x = -t*.3; shapes[1].rotation.z = t*.25;
+    shapes[2].rotation.x = t*.2;  shapes[2].rotation.y = t*.5;
+    shapes[3].rotation.y = t*.6;  shapes[3].rotation.z = t*.2;
+    shapes[4].rotation.x = t*.35; shapes[4].rotation.y = -t*.4;
+    grid.rotation.z = t*.008;
+    camera.position.x += (mx*.5 - camera.position.x)*.05;
+    camera.position.y += (my*.3 - camera.position.y)*.05;
+    camera.lookAt(0,0,0);
+    renderer.render(scene, camera);
+  })();
+})();
+
+/* ── Card tilt ── */
+function tilt(sel, max){
+  document.querySelectorAll(sel).forEach(c=>{
+    c.addEventListener('mousemove', e=>{
+      const r = c.getBoundingClientRect();
+      const dx = (e.clientX-(r.left+r.width/2))/(r.width/2);
+      const dy = (e.clientY-(r.top+r.height/2))/(r.height/2);
+      c.style.transform = `perspective(900px) rotateX(${-dy*max}deg) rotateY(${dx*max}deg) scale(1.03)`;
+    });
+    c.addEventListener('mouseleave', ()=> c.style.transform='');
+  });
+}
+tilt('.tc', 8);
+tilt('.s3d', 12);
+tilt('.pc', 8);
+
+/* ── Nav scroll ── */
+window.addEventListener('scroll', ()=> document.getElementById('nav').classList.toggle('sc', scrollY > 40));
+
+/* ── Hamburger ── */
+document.getElementById('hbg').addEventListener('click', ()=> document.getElementById('mnav').classList.toggle('op'));
+document.querySelectorAll('.ml').forEach(l=> l.addEventListener('click', ()=> document.getElementById('mnav').classList.remove('op')));
+
+/* ── Scroll reveal ── */
+const srObs = new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); srObs.unobserve(e.target); } });
+},{threshold:.1, rootMargin:'0px 0px -55px 0px'});
+document.querySelectorAll('.sr, .srs').forEach(el=> srObs.observe(el));
+
+/* ── Animated counters ── */
+const cObs = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.count, suffix = el.dataset.suffix||'';
+    // FIX: if data-count is missing or non-numeric, target was NaN and the
+    // counter silently displayed "NaN" with no error anywhere. Bail out
+    // safely instead and leave the original markup untouched.
+    if(!Number.isFinite(target)){
+      console.warn('Skipping counter: invalid data-count on', el);
+      return;
+    }
+    let start = null;
+    const step = ts=>{
+      if(!start) start = ts;
+      const p = Math.min((ts-start)/1800, 1), eased = 1-Math.pow(1-p,3);
+      el.textContent = Math.floor(eased*target)+suffix;
+      if(p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    cObs.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=> cObs.observe(el));
+
+/* ── FAQ accordion ── */
+document.querySelectorAll('.fq').forEach(q=>{
+  q.addEventListener('click', ()=>{
+    const item = q.closest('.fitem'), wasOpen = item.classList.contains('op');
+    document.querySelectorAll('.fitem').forEach(i=> i.classList.remove('op'));
+    if(!wasOpen) item.classList.add('op');
+  });
+});
+
+/* ── Form submit via EmailJS ──
+   FIX: the SDK previously loaded async with no way for handleSub() to know
+   whether it was ready. Clicking "Send" before the CDN script finished
+   loading threw an uncaught ReferenceError (emailjs undefined), which
+   skipped the .catch() entirely and left the button stuck on "Sending…"
+   forever with no feedback to the user. This now tracks load state
+   explicitly and surfaces a real error if the SDK never loads at all
+   (ad blocker, firewall, CDN outage). */
+var emailjsReady = false;
+var emailjsLoadFailed = false;
+(function(){
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+  s.onload = function(){
+    try{
+      // TODO: Replace with your own EmailJS Public Key from https://www.emailjs.com
+      emailjs.init({ publicKey: 'RxvX8NhHlqFaSSVj1' });
+      emailjsReady = true;
+    }catch(err){
+      console.error('EmailJS init failed:', err);
+      emailjsLoadFailed = true;
+    }
+  };
+  s.onerror = function(){
+    console.error('EmailJS SDK failed to load from CDN.');
+    emailjsLoadFailed = true;
+  };
+  document.head.appendChild(s);
+})();
+
+function showFieldError(input, msg){
+  input.style.borderColor = '#f43f5e';
+  input.style.boxShadow   = '0 0 0 3px rgba(244,63,94,.15)';
+  var fg = input.closest('.fg');
+  var existing = fg.querySelector('.ferr');
+  if(!existing){
+    var err = document.createElement('span');
+    err.className = 'ferr';
+    err.style.cssText = 'font-size:.68rem;color:#f43f5e;margin-top:2px';
+    err.textContent = msg;
+    fg.appendChild(err);
+  }
+}
+
+function clearFieldError(input){
+  input.style.borderColor = '';
+  input.style.boxShadow   = '';
+  var fg = input.closest('.fg');
+  var existing = fg && fg.querySelector('.ferr');
+  if(existing) existing.remove();
+}
+
+// Live validation: clear error as user types/changes
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.cform .fc2').forEach(function(f){
+    f.addEventListener('input',  function(){ clearFieldError(f); });
+    f.addEventListener('change', function(){ clearFieldError(f); });
+  });
+});
+
+function validateForm(form){
+  var ok = true;
+  var firstName = form.querySelector('[name="first_name"]');
+  var lastName  = form.querySelector('[name="last_name"]');
+  var email     = form.querySelector('[name="email"]');
+  var phone     = form.querySelector('[name="phone"]');
+  var service   = form.querySelector('[name="service"]');
+  var message   = form.querySelector('[name="message"]');
+
+  if(!firstName.value.trim()){
+    showFieldError(firstName, 'First name is required'); ok = false;
+  }
+  var emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!email.value.trim()){
+    showFieldError(email, 'Email is required'); ok = false;
+  } else if(!emailRx.test(email.value.trim())){
+    showFieldError(email, 'Enter a valid email address'); ok = false;
+  }
+  if(!phone.value.trim()){
+    showFieldError(phone, 'Phone number is required'); ok = false;
+  }
+  if(!service.value){
+    showFieldError(service, 'Please select a service'); ok = false;
+  }
+  return ok;
+}
+
+function handleSub(btn){
+  var form = btn.closest('.cform');
+
+  // FIX: guard against double-submit (e.g. rapid double-click before the
+  // disabled attribute visually takes effect, or a stray duplicate event).
+  if(btn.disabled) return;
+
+  // Clear all previous errors first
+  form.querySelectorAll('.fc2').forEach(function(f){ clearFieldError(f); });
+  form.querySelectorAll('.ferr').forEach(function(e){ e.remove(); });
+
+  if(!validateForm(form)) return;
+
+  // FIX: previously this code assumed `emailjs` was already defined on
+  // window. If the user clicked Send before the async CDN script finished
+  // loading (or if it failed to load at all — ad blocker, firewall, CDN
+  // outage), referencing `emailjs` below threw an uncaught ReferenceError
+  // BEFORE the .then()/.catch() chain was reached. That skipped the catch
+  // block entirely, leaving the button stuck on "Sending…" with no
+  // feedback. Now we check readiness explicitly first.
+  if(emailjsLoadFailed || typeof emailjs === 'undefined'){
+    showContactBanner(form, 'error', '⚠️ Failed to send. Please email us directly at pexxoraa@gmail.com');
+    return;
+  }
+  if(!emailjsReady){
+    // SDK script is still loading — wait briefly and retry rather than
+    // failing immediately, since this is the most common real-world case
+    // (fast clickers, slow mobile networks).
+    var orig0 = btn.innerHTML;
+    btn.innerHTML = '<svg width="15" height="15" style="animation:spin .7s linear infinite"><use href="#ic-send"/></svg> Connecting…';
+    btn.disabled = true;
+    var attempts = 0;
+    var waitForReady = setInterval(function(){
+      attempts++;
+      if(emailjsReady){
+        clearInterval(waitForReady);
+        btn.innerHTML = orig0;
+        btn.disabled = false;
+        handleSub(btn);
+      } else if(emailjsLoadFailed || attempts > 25){ // ~5s timeout
+        clearInterval(waitForReady);
+        btn.innerHTML = orig0;
+        btn.disabled = false;
+        showContactBanner(form, 'error', '⚠️ Failed to send. Please email us directly at pexxoraa@gmail.com');
+      }
+    }, 200);
+    return;
+  }
+
+  var orig = btn.innerHTML;
+  btn.innerHTML = '<svg width="15" height="15" style="animation:spin .7s linear infinite"><use href="#ic-send"/></svg> Sending…';
+  btn.disabled = true;
+
+  var templateParams = {
+    first_name : form.querySelector('[name="first_name"]').value.trim(),
+    last_name  : form.querySelector('[name="last_name"]').value.trim(),
+    email      : form.querySelector('[name="email"]').value.trim(),
+    phone      : form.querySelector('[name="phone"]').value.trim(),
+    service    : form.querySelector('[name="service"]').value,
+    message    : form.querySelector('[name="message"]').value.trim(),
+  };
+
+  // TODO: Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your EmailJS values
+  emailjs.send('service_ti3emgb', 'template_c9s2s3u', templateParams)
+    .then(function(){
+      btn.innerHTML = '<svg width="15" height="15"><use href="#ic-check"/></svg> Message Sent!';
+      btn.style.background = 'linear-gradient(135deg,#007a82,#00f5ff)';
+      btn.style.color = '#000';
+      // Show success banner
+      showContactBanner(form, 'success', "🚀 Your message is on its way! We'll reply within 24 hours.");
+      form.querySelectorAll('.fc2').forEach(function(f){
+        if(f.tagName === 'SELECT') f.value = '';
+        else f.value = '';
+      });
+      setTimeout(function(){
+        btn.innerHTML = orig; btn.style.background = ''; btn.style.color = ''; btn.disabled = false;
+      }, 4000);
+    })
+    .catch(function(err){
+      console.error('EmailJS error:', err);
+      btn.innerHTML = orig; btn.disabled = false;
+      showContactBanner(form, 'error', '⚠️ Failed to send. Please email us directly at pexxoraa@gmail.com');
+    });
+}
+
+function showContactBanner(form, type, msg){
+  var existing = form.querySelector('.cbanner');
+  if(existing) existing.remove();
+  var banner = document.createElement('div');
+  banner.className = 'cbanner';
+  var isSuccess = type === 'success';
+  banner.style.cssText = [
+    'margin-top:16px;padding:14px 18px;border-radius:10px;font-size:.84rem;line-height:1.6;',
+    'border:1px solid ' + (isSuccess ? 'rgba(0,245,255,.3)' : 'rgba(244,63,94,.35)') + ';',
+    'background:' + (isSuccess ? 'rgba(0,245,255,.07)' : 'rgba(244,63,94,.08)') + ';',
+    'color:' + (isSuccess ? 'var(--cyan)' : '#f87171') + ';',
+    'transition:opacity .4s ease;'
+  ].join('');
+  banner.textContent = msg;
+  form.appendChild(banner);
+  if(isSuccess){
+    setTimeout(function(){
+      banner.style.opacity = '0';
+      setTimeout(function(){ banner.remove(); }, 400);
+    }, 6000);
+  }
+}
+
+/* ── Smooth scroll ── */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) window.scrollTo({top: t.getBoundingClientRect().top+scrollY-78, behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
