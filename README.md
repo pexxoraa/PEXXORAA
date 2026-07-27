@@ -1,42 +1,31 @@
-# 🚀 PEXXORAA — Creative Digital Agency Website
+PEXXORAA — Creative Digital Agency Website
+A premium, responsive, multi-page website built with vanilla HTML5, CSS3, and ES6+ JavaScript. No frameworks, no build step — just open and go.
 
-![PEXXORAA Banner](https://img.shields.io/badge/Status-Active-brightgreen) ![License](https://img.shields.io/badge/License-MIT-blue) ![Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS-orange)
-
-> **Design. Develop. Elevate.**  
-> A modern, high-converting portfolio website for **PEXXORAA**, a creative digital studio helping startups, creators, and businesses grow through custom design, web development, branding, and performance marketing.
-
----
-
-## 🌟 Overview
-
-PEXXORAA is built for brands that refuse to look ordinary. This repository contains the source code for the agency's official website, designed with a focus on dark-mode aesthetics, responsive layouts, sleek typography, and frictionless lead conversion.
-
-### 🎯 Core Business Pillars
-
-1. **💻 Website Development** — Custom web apps, e-commerce platforms, booking engines, and landing pages optimized for speed and conversion.
-2. **🎨 Branding & Design** — Visual identities, logos, design systems, packaging, and UI/UX design.
-3. **📈 Digital Marketing** — SEO, content strategy, data analytics, and search visibility.
-4. **📢 Performance Advertising** — Multi-platform ad campaigns across Meta, Google, and YouTube engineered for measurable ROI.
-
----
-
-## 🛠️ Tech Stack & Architecture
-
-- **Frontend:** HTML5, CSS3 (Modern Flexbox/Grid), JavaScript (ES6+)
-- **Typography:** Google Fonts (`Inter`, `Plus Jakarta Sans`)
-- **Hosting:** GitHub Pages
-- **Design System:** Dark theme palette with glowing accent gradients, glassmorphic cards, and crisp micro-interactions.
-
----
-
-## 📂 Project Structure
-
-```text
+Structure
 PEXXORAA/
-├── index.html        # Home Page (Hero, Value Prop, Process, Service Overview)
-├── about.html        # Agency Story, Mission, Vision, Values
-├── services.html     # Deep dive into Web Dev, Branding, SEO, and Ads
-├── portfolio.html    # Filterable showcase of client work & case studies
-├── blog.html         # Industry insights, design trends, and growth strategy
-├── contact.html      # Project intake form and calendar booking
-└── assets/           # Images, logos, and stylesheets
+├── index.html          Home — hero, services, industries, process, portfolio preview, testimonials, FAQ
+├── about.html           Story, mission, vision, values, milestones
+├── services.html        Full service breakdown by category
+├── portfolio.html       Filterable project grid
+├── blog.html             Searchable article grid
+├── contact.html          Validated contact form + business info
+├── robots.txt / sitemap.xml
+├── css/
+│   └── style.css        Design tokens, layout, components, animations, dark mode
+├── js/
+│   ├── data.js           Sample content (portfolio, blog, testimonials, FAQ)
+│   └── main.js           All interactivity: nav, theme, reveal, counters, filters,
+│                          carousel, accordion, form validation, toasts, cookie banner
+└── assets/               images / icons / illustrations / fonts (add your own media here)
+Design system
+Colors: Primary #2563EB, Secondary #7C3AED, Accent #06B6D4, plus a charcoal dark mode.
+Type: Space Grotesk (display), Inter (body/UI), loaded from Google Fonts.
+Signature element: the "Design · Develop · Elevate" constellation in the hero, visualizing the brand's three-pillar process as a connected triangle.
+Running locally
+No build tools required. Open index.html directly in a browser, or serve the folder with any static server, e.g.:
+
+npx serve .
+Extending
+Replace the sample arrays in js/data.js with real portfolio, blog, and testimonial content, or wire them up to a CMS/API.
+Add real photography to assets/images and swap the CSS gradient placeholders in portfolio-thumb / blog-thumb.
+The architecture (services, industries, process) is data-driven where possible, so new services or industries can be added as new cards without restructuring the layout.
