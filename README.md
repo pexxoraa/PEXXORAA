@@ -20,10 +20,9 @@ I specialize in full-stack web development with an emphasis on writing maintaina
 
 | Domain | Technologies & Tools |
 | :--- | :--- |
-| **Languages** | JavaScript (ES6+), TypeScript, HTML5, CSS3, SQL |
-| **Frontend** | React, Next.js, Tailwind CSS, Redux / Context API |
-| **Backend & Databases** | Node.js, Express, PostgreSQL, MongoDB |
-| **Tools & Workflow** | Git, GitHub, Postman, Vite, Docker, npm / yarn |
+| **Frontend** | HTML , CSS, Next.js, Tailwind CSS |
+| **Backend & Databases** | Node.js, PostgreSQL, MySQL |
+| **Tools & Workflow** | Git, GitHub, Vite, Docker, npm |
 
 ---
 
